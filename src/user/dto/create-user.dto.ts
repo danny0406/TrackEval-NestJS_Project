@@ -22,7 +22,7 @@ import {
     username: string;
   
     @IsNotEmpty()
-    @IsEmail(null, { message: 'Please provide valid Email.' })
+    @IsEmail()
     email: string;
 
     @IsString()

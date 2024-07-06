@@ -5,6 +5,8 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class UserService {
   constructor(
@@ -20,8 +22,10 @@ export class UserService {
     if(userFound){
       throw new HttpException('Username already exists', HttpStatus.CONFLICT);
     }
-
-    const newUser = this.userRepository.create(user);
+    const hash = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(user.password, hash);
+  
+    const newUser = this.userRepository.create({ ...user, password: hashedPassword });
     return this.userRepository.save(newUser);
   }
 
@@ -47,11 +51,14 @@ export class UserService {
   }
 
 
-//*Existe un conflicto si enviamos el username existente
   async update(id: number, user: UpdateUserDto) {
     const userFound = await this.userRepository.findOne({where:{ id }})
     if(!userFound){
       throw new HttpException('User not found', HttpStatus.NOT_FOUND)
+    }
+    if (user.password) {
+      const salt = await bcrypt.genSalt();
+      user.password = await bcrypt.hash(user.password, salt);
     }
     const updateUser = Object.assign(userFound,user)
     return this.userRepository.save(updateUser);
