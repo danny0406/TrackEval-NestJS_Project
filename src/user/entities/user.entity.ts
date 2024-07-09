@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer'
+import { Role } from 'src/enums/role.enum';
 
 @Entity()
 export class User {
@@ -47,4 +48,6 @@ export class User {
   async validatePassword(password: string) {
     return bcrypt.compare(password, this.password)
   }
+
+  roles: Role[];
 }
