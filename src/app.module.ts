@@ -9,6 +9,9 @@ import { UserModule } from './user/user.module';
 import { getTypeOrmConfig } from './config/database.config'; 
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
+import { QuizModule } from './quiz/quiz.module';
+import { QuestionModule } from './question/question.module';
+import { AnswerModule } from './answer/answer.module';
 
 @Module({
   imports: [
@@ -24,6 +27,9 @@ import { AuthGuard } from './auth/auth.guard';
     }),
     UserModule,
     AuthModule,
+    QuizModule,
+    QuestionModule,
+    AnswerModule,
   ],
   controllers: [AppController],
   providers: [
