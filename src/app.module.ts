@@ -13,6 +13,7 @@ import { RolesGuard } from './roles/roles.guard';
 import { QuizModule } from './quiz/quiz.module';
 import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
+import { GameModule } from './game/game.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { AnswerModule } from './answer/answer.module';
     QuizModule,
     QuestionModule,
     AnswerModule,
+    GameModule,
   ],
   controllers: [AppController],
   providers: [

@@ -13,7 +13,7 @@ export const getTypeOrmConfig = (configService: ConfigService): TypeOrmModuleOpt
   username: configService.get<string>('POSTGRES_USER'),
   password: configService.get<string>('POSTGRES_PASSWORD'),
   database: configService.get<string>('POSTGRES_DATABASE'),
-  entities: [User,Quiz,Question,Answer],
+  entities: ['./dist/**/*.entity{.ts,.js}'],
   synchronize: true,
   logging: true, 
 });
