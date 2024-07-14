@@ -1,4 +1,3 @@
-// src/game/game.gateway.ts
 import {
   WebSocketGateway,
   WebSocketServer,
@@ -9,7 +8,6 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { GameService } from './game.service';
 
 @WebSocketGateway({ namespace: 'game' })
 export class GameGateway 
@@ -23,8 +21,6 @@ implements OnGatewayConnection, OnGatewayDisconnect {
   handleDisconnect(client: any) {
     console.log('Client disconnect ',client.id)
   }
-
-  constructor(private readonly gameService: GameService) {}
 
   @SubscribeMessage('joinGame')
   handleJoinGame(@MessageBody() data: { gameId: number }, @ConnectedSocket() client: Socket): void {
