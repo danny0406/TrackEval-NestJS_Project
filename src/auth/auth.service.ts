@@ -23,8 +23,15 @@ export class AuthService {
     if(!passwordIsValid){
       throw new UnauthorizedException('Invalid password');
     }
-   
-    const payload = { id: user.id, username: user.username };
+    let role = 'guest';
+    if (user.usertype === 't') {
+      role = 'teacher';
+    } else if (user.usertype === 's') {
+      role = 'student';
+    }
+
+    const payload = { id: user.id, username: user.username, roles: role };
+
 
     return {
       access_token: await this.jwtService.signAsync(payload)

@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { getTypeOrmConfig } from './config/database.config'; 
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
+import { RolesGuard } from './roles/roles.guard';
 import { QuizModule } from './quiz/quiz.module';
 import { QuestionModule } from './question/question.module';
 import { AnswerModule } from './answer/answer.module';
@@ -37,6 +38,10 @@ import { AnswerModule } from './answer/answer.module';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })
