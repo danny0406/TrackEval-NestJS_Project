@@ -10,5 +10,6 @@ import { Answer } from 'src/answer/entities/answer.entity';
   imports: [TypeOrmModule.forFeature([Quiz,Question,Answer])],
   controllers: [QuizController],
   providers: [QuizService],
+  exports:[QuizService],
 })
 export class QuizModule {}
