@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsInt, IsString } from "class-validator";
 
 export class CreateGameDto {
 
@@ -7,5 +7,8 @@ export class CreateGameDto {
     
     @IsString()
     pin: string;
+
+    @IsInt()
+    quizId: number;
   }
   

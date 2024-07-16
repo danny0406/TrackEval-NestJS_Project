@@ -7,10 +7,13 @@ export class Game {
   id: number;
 
   @Column()
-  title: string;
+  title: string; 
 
   @Column()
   pin: string;
+
+  @Column()
+  quizId: number;  
 
   @Column({ default: false })
   started: boolean;

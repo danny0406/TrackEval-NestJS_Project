@@ -18,6 +18,7 @@ export class GameService {
     const game = new Game();
     game.title = createGameDto.title;
     game.pin = createGameDto.pin;
+    game.quizId = createGameDto.quizId; 
     return this.gameRepository.save(game);
   }
 

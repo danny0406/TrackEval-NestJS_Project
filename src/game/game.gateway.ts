@@ -12,7 +12,7 @@ import { QuizService } from 'src/quiz/quiz.service';
 
 @WebSocketGateway({
   cors: {
-    origin: 'http://localhost:5173', // Permitir solicitudes desde esta URL
+    origin: 'http://localhost:5173', 
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -62,12 +62,16 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('startGame')
   async handleStartGame(client: Socket, payload: { gameId: string }) {
     try {
-      const quiz = await this.quizService.findOne(parseInt(payload.gameId));
+      const game = await this.gamesService.findOne(payload.gameId);
+      if (!game) {
+        throw new NotFoundException('Game not found');
+      }
+
+      const quiz = await this.quizService.findOne(game.quizId);
       if (!quiz) {
         throw new NotFoundException('Quiz not found');
       }
 
-      // Empezar enviando la primera pregunta
       if (quiz.questions.length > 0) {
         this.sendQuestion(client, quiz.questions[0], payload.gameId);
       }
@@ -79,7 +83,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   private sendQuestion(client: Socket, question: any, gameId: string) {
-    client.to(gameId).emit('newQuestion', question);
+    this.server.to(gameId).emit('newQuestion', question);
   }
 
   @SubscribeMessage('submitAnswer')
@@ -90,7 +94,15 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const { gameId, questionId, answer } = payload;
 
     try {
-      const quiz = await this.quizService.findOne(parseInt(gameId));
+      const game = await this.gamesService.findOne(gameId);
+      if (!game) {
+        throw new NotFoundException('Game not found');
+      }
+
+      const quiz = await this.quizService.findOne(game.quizId);
+      if (!quiz) {
+        throw new NotFoundException('Quiz not found');
+      }
 
       const question = quiz.questions.find((q) => q.id === parseInt(questionId));
       if (!question) {
