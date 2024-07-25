@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Game } from './entities/game.entity';
 import { Player } from './entities/player.entity';
 import { CreateGameDto } from './dto/create-game.dto';
+import { QuizService } from 'src/quiz/quiz.service';
 
 @Injectable()
 export class GameService {
@@ -12,13 +13,23 @@ export class GameService {
     private gameRepository: Repository<Game>,
     @InjectRepository(Player)
     private playersRepository: Repository<Player>,
+    private quizService: QuizService,
   ) {}
 
-  create(createGameDto: CreateGameDto): Promise<Game> {
+  async create(createGameDto: CreateGameDto): Promise<Game> {
+    const quiz = await this.quizService.findOne(createGameDto.quizId);
+    if (!quiz) {
+      throw new NotFoundException(`No quiz found with id: ${createGameDto.quizId}`);
+    }
     const game = new Game();
     game.title = createGameDto.title;
+    const findPin = await this.findByPin(createGameDto.pin);
+    if (findPin) {
+      throw new ConflictException('Pin already exists.');
+    }
     game.pin = createGameDto.pin;
     game.quizId = createGameDto.quizId; 
+
     return this.gameRepository.save(game);
   }
 
@@ -47,6 +58,10 @@ export class GameService {
       return this.playersRepository.save(player);
     }
     throw new Error('Game not found');
+  }
+
+  findAll(): Promise<Game[]> {
+    return this.gameRepository.find();
   }
 
   async remove(id: string): Promise<void> {
