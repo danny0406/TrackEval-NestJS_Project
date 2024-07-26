@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request } from '@nestjs/common';
 
 import { Public } from '../decorators/public.decorator'
 
@@ -19,9 +19,11 @@ export class AuthController {
 
   @Public()
   @Post('login')
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'User login' })
   @ApiResponse({ status: 200, description: 'User logged in successfully.' })
   @ApiResponse({ status: 401, description: 'Invalid username or password.' })
+  @ApiResponse({ status: 404, description: 'Username not found.' })
   async signIn(@Body() signInDto: SignInAuthDto) {
     return await this.authService.signIn(signInDto);
   }
@@ -31,6 +33,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Register a new user' })
   @ApiResponse({ status: 201, description: 'User registered successfully.' })
   @ApiResponse({ status: 409, description: 'Username already exists.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   async register(@Body() user: CreateUserDto) {
     return this.userService.create(user);
   }
