@@ -32,14 +32,14 @@ Un clon de Kahoot que permite la gestión de cuestionarios, administración de u
 - [Docker](https://www.docker.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
-
+- [TypeORM](https://typeorm.io/)
 
 ## Instalación
 
 1. Clona el repositorio:
    ```ps
-   $ git clone https://github.com/tu-usuario/tu-repositorio.git
-   $ cd tu-repositorio
+   $ git clone https://github.com/danny0406/TrackEval-NestJS_Project.git
+   $ cd TrackEval-NestJS_Project
    ```
 
 2. Instalar las dependencias necesarias:
@@ -57,12 +57,15 @@ Un clon de Kahoot que permite la gestión de cuestionarios, administración de u
 
 5. La aplicación estará disponible en **http://localhost:5005**
 
+    ***Observacion:***
+El puerto dependera del asignado en la variable de entorno`NODE_PORT=`**`5005`** del archivo `.env`
+
 
 ## Uso
 Instrucciones básicas para usar la aplicación.
 
 
-- Accede a `http://localhost:3000/api` para ver la documentación de la API generada con Swagger.
+- Accede a `http://localhost:5005/api` para ver la documentación de la API generada con Swagger.
 - Utiliza las rutas de la API para gestionar cuestionarios.
 - Para usar los eventos de websockets debe usar la herramienta de *Postman* u otra con la cual pueda simular al cliente.
 
