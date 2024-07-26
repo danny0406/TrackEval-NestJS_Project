@@ -5,6 +5,7 @@ import { Public } from '../decorators/public.decorator'
 import { AuthService } from './auth.service';
 import { SignInAuthDto } from './dto/signIn-auth.dto';
 import { UserService } from 'src/user/user.service';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -16,7 +17,13 @@ export class AuthController {
   @Public()
   @Post('login')
   async signIn(@Body() signInDto: SignInAuthDto) {
-    return this.authService.signIn(signInDto);
+    return await this.authService.signIn(signInDto);
+  }
+
+  @Public()
+  @Post('register')
+  async register(@Body() user: CreateUserDto) {
+    return this.userService.create(user);
   }
   
   @Get('profile')
