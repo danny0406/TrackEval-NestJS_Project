@@ -125,13 +125,10 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
       }
 
       const nextQuestion = quiz.questions[currentIndex + 1];
-      console.log(nextQuestion);
       if (nextQuestion) {
         this.sendQuestion(client, nextQuestion, payload.gameId);
-        console.log('if ');
       } else {
         client.emit('lastQuestion', { message: 'This was the last question' });
-        console.log('lastQuestion ');
       }
     } catch (error) {
       this.logger.error(`Error in handleNextQuestion: ${error.message}`);
