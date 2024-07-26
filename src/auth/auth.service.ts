@@ -16,13 +16,13 @@ export class AuthService {
     const user = await this.userService.findByUsername(username);
 
     if(!user){
-      throw new UnauthorizedException('Invalid username');
+      throw new UnauthorizedException('Invalid username or password');
     }
 
     const passwordIsValid = await user.validatePassword(password);
 
     if(!passwordIsValid){
-      throw new UnauthorizedException('Invalid password');
+      throw new UnauthorizedException('Invalid username or password');
     }
     let role = Role.Guest;
     if (user.usertype === Role.Teacher) {
