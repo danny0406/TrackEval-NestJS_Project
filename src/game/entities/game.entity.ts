@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Player } from './player.entity';
+import { MinLength } from 'class-validator';
 
 @Entity()
 export class Game {
@@ -10,6 +11,7 @@ export class Game {
   title: string; 
 
   @Column()
+  @MinLength(4)
   pin: string;
 
   @Column()
