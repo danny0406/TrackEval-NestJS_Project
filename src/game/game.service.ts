@@ -33,8 +33,12 @@ export class GameService {
     return this.gameRepository.save(game);
   }
 
-  findOne(id: string): Promise<Game> {
-    return this.gameRepository.findOneBy({ id: Number(id) });
+  async findOne(id: string): Promise<Game> {
+    const gameFound = await this.gameRepository.findOneBy({ id: Number(id) });
+    if(!gameFound){
+      throw new NotFoundException(`No game found with id: ${id}`);
+    }
+    return gameFound;
   }
 
   findByPin(pin: string): Promise<Game> {
