@@ -100,4 +100,15 @@ export class QuizService {
     
     return this.quizRepository.delete({id});
   }
+
+  async countQuestions(id: number): Promise<number> {
+    const quizFound = await this.quizRepository.findOne({
+      where: { id },
+      relations: ['questions'],
+    });
+    if (!quizFound) {
+      throw new NotFoundException(`No quiz found with id: ${id}`);
+    }
+    return quizFound.questions.length;
+  }
 }

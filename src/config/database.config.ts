@@ -1,9 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { User } from 'src/user/entities/user.entity';
-import { Answer } from 'src/answer/entities/answer.entity';
-import { Quiz } from 'src/quiz/entities/quiz.entity';
-import { Question } from 'src/question/entities/question.entity';
 
 
 export const getTypeOrmConfig = (configService: ConfigService): TypeOrmModuleOptions => ({
