@@ -29,6 +29,7 @@ export class UserController {
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 201, description: 'User created successfully.' })
   @ApiResponse({ status: 409, description: 'Username already exists.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   create(@Body() user: CreateUserDto) {
     return this.userService.create(user);
   }
@@ -36,6 +37,7 @@ export class UserController {
   @Get()
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, description: 'Users retrieved successfully.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   findAll() {
     return this.userService.findAll();
   }
@@ -44,6 +46,7 @@ export class UserController {
   @ApiOperation({ summary: 'Get user by ID' })
   @ApiResponse({ status: 200, description: 'User retrieved successfully.' })
   @ApiResponse({ status: 404, description: 'User not found.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   findById(@Param('id') id: number) {
     return this.userService.findById(id);
   }
@@ -52,6 +55,7 @@ export class UserController {
   @ApiOperation({ summary: 'Update user' })
   @ApiResponse({ status: 200, description: 'User updated successfully.' })
   @ApiResponse({ status: 404, description: 'User not found.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   update(@Param('id') id: number, @Body() user: UpdateUserDto) {
     return this.userService.update(id, user);
   }
@@ -61,6 +65,8 @@ export class UserController {
   @ApiOperation({ summary: 'Delete user' })
   @ApiResponse({ status: 200, description: 'User deleted successfully.' })
   @ApiResponse({ status: 404, description: 'User not found.' })
+  @ApiResponse({ status: 403, description: 'Forbidden resource.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   remove(@Param('id') id: number) {
     return this.userService.remove(id);
   }

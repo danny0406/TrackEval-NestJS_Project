@@ -24,6 +24,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'User logged in successfully.' })
   @ApiResponse({ status: 401, description: 'Invalid username or password.' })
   @ApiResponse({ status: 404, description: 'Username not found.' })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
   async signIn(@Body() signInDto: SignInAuthDto) {
     return await this.authService.signIn(signInDto);
   }
