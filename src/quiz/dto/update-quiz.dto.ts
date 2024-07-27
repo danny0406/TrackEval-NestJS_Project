@@ -9,6 +9,7 @@ export class UpdateQuizDto {
     @IsOptional()
     title?: string;
   
+    @ApiPropertyOptional({ type: [UpdateQuestionDto] })
     @ValidateNested({ each: true })
     @Type(() => UpdateQuestionDto)
     @ArrayMinSize(1)

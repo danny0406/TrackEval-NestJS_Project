@@ -17,7 +17,14 @@ export class CreateQuestionDto {
     @MaxLength(255)
     text: string;
     
-    @ApiProperty({type:'array',items:{example:{"text":"string","isCorrect":true}}})
+    @ApiProperty({
+      description: 'Array of answers for the question',
+      type: [CreateAnswerDto],
+      example: [
+        { text: 'Paris', isCorrect: true },
+        { text: 'London', isCorrect: false },
+      ]
+    })
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CreateAnswerDto)

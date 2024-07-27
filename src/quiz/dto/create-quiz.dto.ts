@@ -12,6 +12,7 @@ export class CreateQuizDto {
   @IsString()
   title: string;
 
+  @ApiProperty({ type: [CreateQuestionDto] })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateQuestionDto)
