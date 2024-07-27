@@ -4,7 +4,7 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="50" alt="Nest Logo" /></a>
 </p>
 
-## Tabla de Contenidos
+## Tabla de Contenido
 
 - [Descripción](#descripción)
 - [Características](#características)
