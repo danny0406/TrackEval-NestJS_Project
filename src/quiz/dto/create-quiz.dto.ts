@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   ArrayMinSize,
@@ -7,7 +8,7 @@ import {
 } from 'class-validator';
 import { CreateQuestionDto } from 'src/question/dto/create-question.dto';
 export class CreateQuizDto {
-
+  @ApiProperty()
   @IsString()
   title: string;
 

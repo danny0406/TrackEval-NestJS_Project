@@ -1,6 +1,8 @@
-import { IsString } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
 
 export class StartGameDto {
-    @IsString()
-    gameId: string;
-  }
+  @ApiProperty()
+  @IsString()
+  gameId: string;
+}

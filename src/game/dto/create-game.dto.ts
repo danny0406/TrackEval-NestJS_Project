@@ -1,14 +1,17 @@
-import { IsInt, IsString } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, IsString, MinLength } from 'class-validator';
 
 export class CreateGameDto {
+  @ApiProperty()
+  @IsString()
+  title: string;
 
-    @IsString()
-    title: string;
-    
-    @IsString()
-    pin: string;
+  @ApiProperty()
+  @IsString()
+  @MinLength(4)
+  pin: string;
 
-    @IsInt()
-    quizId: number;
-  }
-  
+  @ApiProperty()
+  @IsInt()
+  quizId: number;
+}

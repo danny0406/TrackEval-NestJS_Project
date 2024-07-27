@@ -1,15 +1,11 @@
-import {
-  IsBoolean,
-  IsString,
-} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsString } from 'class-validator';
 
 export class CreateAnswerDto {
-
-    @IsString()
-    text: string;
-
-    @IsBoolean()
-    isCorrect: boolean;
-
-  }
-  
+  @ApiProperty()
+  @IsString()
+  text: string;
+  @ApiProperty()
+  @IsBoolean()
+  isCorrect: boolean;
+}

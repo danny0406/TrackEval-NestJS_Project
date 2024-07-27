@@ -2,6 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer'
 import { Role } from 'src/enums/role.enum';
+import { Gender } from 'src/enums/gender.enum';
 
 @Entity()
 export class User {
@@ -28,22 +29,11 @@ export class User {
   password: string;
 
   @Exclude()
-  @Column({ type: 'enum', enum: ['t', 's', 'g'] })
-  /**
-   * t - teacher
-   * s - student
-   * g - guest
-   */
+  @Column({ type: 'enum', enum: Role })
   usertype: string;
 
-  @Column({ type: 'enum', enum: ['m', 'f'] })
-  /**
-   * m - male
-   * f - feminine
-   */
+  @Column({ type: 'enum', enum: Gender })
   gender: string;
-
-
 
   async validatePassword(password: string) {
     return bcrypt.compare(password, this.password)

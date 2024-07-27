@@ -21,14 +21,17 @@ export class GameService {
     if (!quiz) {
       throw new NotFoundException(`No quiz found with id: ${createGameDto.quizId}`);
     }
-    const game = new Game();
-    game.title = createGameDto.title;
+
     const findPin = await this.findByPin(createGameDto.pin);
     if (findPin) {
       throw new ConflictException('Pin already exists.');
     }
-    game.pin = createGameDto.pin;
-    game.quizId = createGameDto.quizId; 
+
+    const game = this.gameRepository.create({
+      title: createGameDto.title,
+      pin: createGameDto.pin,
+      quizId: createGameDto.quizId,
+    });
 
     return this.gameRepository.save(game);
   }
@@ -46,10 +49,12 @@ export class GameService {
   }
 
   async startGame(id: string): Promise<void> {
-    const game = await this.gameRepository.findOneBy({ id: Number(id) });
+    const game = await this.findOne(id);
     if (game) {
       game.started = true;
       await this.gameRepository.save(game);
+    } else {
+      throw new NotFoundException(`No game found with id: ${id}`);
     }
   }
 
@@ -69,6 +74,10 @@ export class GameService {
   }
 
   async remove(id: string): Promise<void> {
+    const game = await this.findOne(id);
+    if (!game) {
+      throw new NotFoundException(`No game found with id: ${id}`);
+    }
     await this.gameRepository.delete(id);
   }
 }
