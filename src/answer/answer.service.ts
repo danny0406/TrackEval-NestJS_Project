@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Answer } from './entities/answer.entity';
@@ -9,7 +9,7 @@ import { UpdateAnswerDto } from './dto/update-answer.dto';
 export class AnswerService {
   constructor(
     @InjectRepository(Answer)
-    private answerRepository: Repository<Answer>,
+    private readonly answerRepository: Repository<Answer>,
   ) {}
 
   create(createAnswerDto: CreateAnswerDto): Promise<Answer> {
@@ -21,17 +21,22 @@ export class AnswerService {
     return this.answerRepository.find();
   }
 
-  findOne(id: number): Promise<Answer> {
-    return this.answerRepository.findOne({where: {id},});
+  async findOne(id: number): Promise<Answer> {
+    const answer = await this.answerRepository.findOne({ where: { id } });
+    if (!answer) {
+      throw new NotFoundException(`Answer with id ${id} not found`);
+    }
+    return answer;
   }
 
   async update(id: number, updateAnswerDto: UpdateAnswerDto): Promise<Answer> {
-    await this.answerRepository.update(id, updateAnswerDto);
-    return this.answerRepository.findOne({where: {id},});
+    const answer = await this.findOne(id);
+    this.answerRepository.merge(answer, updateAnswerDto);
+    return this.answerRepository.save(answer);
   }
 
   async remove(id: number): Promise<void> {
-    await this.answerRepository.delete(id);
+    const answer = await this.findOne(id);
+    await this.answerRepository.delete(answer.id);
   }
 }
-
