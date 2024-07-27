@@ -13,23 +13,23 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
-  # app:
-  #   build:
-  #     context: .
-  #     dockerfile: DockerFile
-  #   container_name: nest-app
-  #   environment:
-  #     - NODE_PORT=${NODE_PORT}
-  #     - POSTGRES_HOST=postgres-db
-  #     - POSTGRES_PORT=${POSTGRES_PORT}
-  #     - POSTGRES_USER=${POSTGRES_USER}
-  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-  #     - POSTGRES_DATABASE=${POSTGRES_DATABASE}
-  #   ports:
-  #     - '${NODE_PORT}:${NODE_PORT}'
-  #   depends_on:
-  #     - postgres-db
-  #   volumes:
-  #     - ./src:/app/src
+  app:
+    build:
+      context: .
+      dockerfile: DockerFile
+    container_name: nest-app
+    environment:
+      - NODE_PORT=${NODE_PORT}
+      - POSTGRES_HOST=postgres-db
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+    ports:
+      - '${NODE_PORT}:${NODE_PORT}'
+    depends_on:
+      - postgres-db
+    volumes:
+      - ./src:/app/src
 volumes:
   pgdata:

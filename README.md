@@ -1,75 +1,71 @@
 # TrackEval - Evaluacion de seguimiento
 
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="150" alt="Nest Logo" /></a>
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="50" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Tabla de Contenido
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- [Descripción](#descripción)
+- [Características](#características)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Instalación](#instalación)
+- [Uso](#uso)
 
-## Description
+## Descripción
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+Un clon de Kahoot que permite la gestión de cuestionarios, administración de usuarios y juegos en tiempo real.
 
-```bash
-$ npm install
-```
+## Características
 
-## Running the app
+- CRUD para cuestionarios.
+- Gestión de usuarios con autenticación JWT y roles.
+- Módulo de juego en tiempo real utilizando WebSockets.
+- Despliegue fácil con Docker.
 
-```bash
-# development
-$ npm run start
+## Tecnologías Utilizadas
 
-# watch mode
-$ npm run start:dev
+- [NestJS](https://nestjs.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Docker](https://www.docker.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+- [TypeORM](https://typeorm.io/)
 
-# production mode
-$ npm run start:prod
-```
+## Instalación
 
-## Test
+1. Clona el repositorio:
+   ```ps
+   $ git clone https://github.com/danny0406/TrackEval-NestJS_Project.git
+   $ cd TrackEval-NestJS_Project
+   ```
 
-```bash
-# unit tests
-$ npm run test
+2. Instalar las dependencias necesarias:
 
-# e2e tests
-$ npm run test:e2e
+   ```ps
+   $ npm install
+   ```
 
-# test coverage
-$ npm run test:cov
-```
+3. Crea un archivo **`.env`** basado en el archivo **`.env.example`** y configura las variables de entorno.
 
-## Support
+4. Construye y levanta los contenedores Docker:
+   ```ps
+    $ docker compose up -d
+   ```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+5. La aplicación estará disponible en **http://localhost:5005**
 
-## Stay in touch
+    ***Observacion:***
+El puerto dependera del asignado en la variable de entorno`NODE_PORT=`**`5005`** del archivo `.env`
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
+## Uso
+Instrucciones básicas para usar la aplicación.
 
-Nest is [MIT licensed](LICENSE).
+
+- Accede a `http://localhost:5005/api` para ver la documentación de la API generada con Swagger.
+- Utiliza las rutas de la API para gestionar cuestionarios.
+- Para usar los eventos de websockets debe usar la herramienta de *Postman* u otra con la cual pueda simular al cliente.
+
