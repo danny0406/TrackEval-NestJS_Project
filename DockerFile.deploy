@@ -1,0 +1,21 @@
+# Usar una imagen base compatible con Raspberry Pi (ARM32v7)
+FROM arm32v7/node:16 as build
+
+WORKDIR /app
+
+# Copiar archivos y construir la app
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+# Compilar el proyecto
+RUN npm run build
+
+# Configurar imagen de producción
+FROM arm32v7/node:16
+WORKDIR /app
+
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
+
+CMD ["node", "dist/main"]

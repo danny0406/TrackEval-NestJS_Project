@@ -2,7 +2,7 @@ version: '3.9'
 services:
 
   postgres-db:
-    image: postgres
+    image: arm32v7/postgres:16  # Imagen compatible con Raspberry Pi 3
     restart: always
     container_name: postgres_db
     ports:
@@ -13,10 +13,11 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
+
   app:
     build:
       context: .
-      dockerfile: DockerFile
+      dockerfile: DockerFile.deploy  # Verifica que el nombre esté correcto
     container_name: nest-app
     environment:
       - NODE_PORT=${NODE_PORT}
@@ -33,5 +34,6 @@ services:
       - postgres-db
     volumes:
       - ./src:/app/src
+
 volumes:
   pgdata:
