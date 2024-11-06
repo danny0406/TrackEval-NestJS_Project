@@ -1,0 +1,48 @@
+name: Deploy to Raspberry Pi
+
+on:
+  push:
+    branches:
+      - main  # Cambia esto a la rama que desees observar para el despliegue continuo
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm32v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          docker buildx build --platform linux/arm/v7 --push -t ${{ secrets.DOCKER_USERNAME }}/nestjs_app:latest .
+
+      - name: Deploy to Raspberry Pi
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          PI_USER: ${{ secrets.PI_USER }}
+          PI_HOST: ${{ secrets.PI_HOST }}
+        run: |
+          echo "${SSH_PRIVATE_KEY}" > private_key
+          chmod 600 private_key
+          scp -i private_key docker-compose.yml $PI_USER@$PI_HOST:/home/$PI_USER/nestjs_app/
+          ssh -i private_key $PI_USER@$PI_HOST << EOF
+            cd /home/$PI_USER/nestjs_app/
+            docker-compose down
+            docker-compose pull app
+            docker-compose up -d
+          EOF
