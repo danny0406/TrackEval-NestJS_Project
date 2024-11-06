@@ -30,7 +30,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker buildx build --platform linux/arm/v7 --push -t ${{ secrets.DOCKER_USERNAME }}/nestjs_app:latest .
+          docker buildx build --platform linux/arm/v7 --push -t ${{ secrets.DOCKER_USERNAME }}/nestjs_app:latest -f DockerFile.deploy .
 
       - name: Deploy to Raspberry Pi
         env:
