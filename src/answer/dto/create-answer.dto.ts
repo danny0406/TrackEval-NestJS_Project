@@ -7,7 +7,6 @@ export class CreateAnswerDto {
   @IsNotEmpty()
   text: string;
 
-  
   @ApiProperty()
   @IsBoolean()
   isCorrect: boolean;

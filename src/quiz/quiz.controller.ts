@@ -1,8 +1,21 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Roles } from 'src/roles/roles.decorator';
 import { Role } from 'src/enums/role.enum';
 
@@ -22,7 +35,10 @@ export class QuizController {
 
   @Post()
   @ApiOperation({ summary: 'Create quiz' })
-  @ApiResponse({ status: 201, description: 'The quiz has been successfully created.' })
+  @ApiResponse({
+    status: 201,
+    description: 'The quiz has been successfully created.',
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   create(@Body() createQuizDto: CreateQuizDto) {
@@ -37,10 +53,13 @@ export class QuizController {
   findOne(@Param('id') id: number) {
     return this.quizService.findOne(id);
   }
-  
+
   @Put(':id')
   @ApiOperation({ summary: 'Update quiz' })
-  @ApiResponse({ status: 200, description: 'The quiz has been successfully updated.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The quiz has been successfully updated.',
+  })
   @ApiResponse({ status: 404, description: 'Quiz not found.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
@@ -48,11 +67,13 @@ export class QuizController {
     return this.quizService.update(id, updateQuizDto);
   }
 
-  
   @Delete(':id')
   @Roles(Role.Teacher)
   @ApiOperation({ summary: 'Delete quiz' })
-  @ApiResponse({ status: 200, description: 'The quiz has been successfully deleted.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The quiz has been successfully deleted.',
+  })
   @ApiResponse({ status: 404, description: 'Quiz not found.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 403, description: 'Forbidden resource.' })
@@ -60,4 +81,3 @@ export class QuizController {
     return this.quizService.remove(id);
   }
 }
-

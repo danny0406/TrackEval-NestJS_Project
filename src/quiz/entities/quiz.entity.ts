@@ -6,9 +6,9 @@ export class Quiz {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar' })
   title: string;
 
-  @OneToMany(() => Question, (question) => question.quiz,{cascade:true})
+  @OneToMany(() => Question, (question) => question.quiz, { cascade: true })
   questions: Question[];
 }

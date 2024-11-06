@@ -8,7 +8,7 @@ import { GameGateway } from './game.gateway';
 import { QuizModule } from 'src/quiz/quiz.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Game, Player]),QuizModule],
+  imports: [TypeOrmModule.forFeature([Game, Player]), QuizModule],
   providers: [GameService, GameGateway],
   controllers: [GameController],
 })

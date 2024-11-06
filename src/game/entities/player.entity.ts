@@ -9,6 +9,6 @@ export class Player {
   @Column()
   nickname: string;
 
-  @ManyToOne(() => Game, game => game.players)
+  @ManyToOne(() => Game, (game) => game.players)
   game: Game;
 }

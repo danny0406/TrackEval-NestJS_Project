@@ -1,4 +1,4 @@
 export enum Gender {
-    Masculine = 'masculine',
-    Femenine = 'femenine'
-  }
+  Masculine = 'masculine',
+  Femenine = 'femenine',
+}

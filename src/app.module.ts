@@ -6,7 +6,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { getTypeOrmConfig } from './config/database.config'; 
+import { getTypeOrmConfig } from './config/database.config';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
 import { RolesGuard } from './roles/roles.guard';
@@ -20,11 +20,12 @@ import { GameModule } from './game/game.module';
     ConfigModule.forRoot({
       cache: true,
       isGlobal: true,
-      expandVariables: true, 
+      expandVariables: true,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => getTypeOrmConfig(configService),
+      useFactory: (configService: ConfigService) =>
+        getTypeOrmConfig(configService),
       inject: [ConfigService],
     }),
     UserModule,

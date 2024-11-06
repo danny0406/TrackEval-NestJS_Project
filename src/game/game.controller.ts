@@ -1,7 +1,12 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { GameService } from './game.service';
 import { CreateGameDto } from './dto/create-game.dto';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Role } from 'src/enums/role.enum';
 import { Roles } from 'src/roles/roles.decorator';
 
@@ -15,7 +20,7 @@ export class GameController {
   @ApiOperation({ summary: 'Retrieve all games' })
   @ApiResponse({ status: 200, description: 'Games retrieved successfully.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
-  findAll(){
+  findAll() {
     return this.gameService.findAll();
   }
 

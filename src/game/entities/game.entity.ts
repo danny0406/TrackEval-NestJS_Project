@@ -8,18 +8,18 @@ export class Game {
   id: number;
 
   @Column()
-  title: string; 
+  title: string;
 
   @Column()
   @MinLength(4)
   pin: string;
 
   @Column()
-  quizId: number;  
+  quizId: number;
 
   @Column({ default: false })
   started: boolean;
 
-  @OneToMany(() => Player, player => player.game)
+  @OneToMany(() => Player, (player) => player.game)
   players: Player[];
 }

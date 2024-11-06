@@ -1,8 +1,21 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AnswerService } from './answer.service';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { UpdateAnswerDto } from './dto/update-answer.dto';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Role } from 'src/enums/role.enum';
 import { Roles } from 'src/roles/roles.decorator';
 
@@ -12,17 +25,18 @@ import { Roles } from 'src/roles/roles.decorator';
 export class AnswerController {
   constructor(private readonly answerService: AnswerService) {}
 
-  
   @Post()
   @ApiOperation({ summary: 'Create answer' })
-  @ApiResponse({ status: 201, description: 'The answer has been successfully created.' })
+  @ApiResponse({
+    status: 201,
+    description: 'The answer has been successfully created.',
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   create(@Body() createAnswerDto: CreateAnswerDto) {
     return this.answerService.create(createAnswerDto);
   }
 
-  
   @Get()
   @ApiOperation({ summary: 'Get all answers' })
   @ApiResponse({ status: 200, description: 'List of answers.' })
@@ -42,7 +56,10 @@ export class AnswerController {
 
   @Put(':id')
   @ApiOperation({ summary: 'Update answer' })
-  @ApiResponse({ status: 200, description: 'The answer has been successfully updated.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The answer has been successfully updated.',
+  })
   @ApiResponse({ status: 404, description: 'Answer not found.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
@@ -53,7 +70,10 @@ export class AnswerController {
   @Delete(':id')
   @Roles(Role.Teacher)
   @ApiOperation({ summary: 'Delete answer' })
-  @ApiResponse({ status: 200, description: 'The answer has been successfully deleted.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The answer has been successfully deleted.',
+  })
   @ApiResponse({ status: 404, description: 'Answer not found.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 403, description: 'Forbidden resource.' })

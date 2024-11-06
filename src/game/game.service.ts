@@ -1,4 +1,8 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Game } from './entities/game.entity';
@@ -19,7 +23,9 @@ export class GameService {
   async create(createGameDto: CreateGameDto): Promise<Game> {
     const quiz = await this.quizService.findOne(createGameDto.quizId);
     if (!quiz) {
-      throw new NotFoundException(`No quiz found with id: ${createGameDto.quizId}`);
+      throw new NotFoundException(
+        `No quiz found with id: ${createGameDto.quizId}`,
+      );
     }
 
     const findPin = await this.findByPin(createGameDto.pin);
@@ -38,7 +44,7 @@ export class GameService {
 
   async findOne(id: string): Promise<Game> {
     const gameFound = await this.gameRepository.findOneBy({ id: Number(id) });
-    if(!gameFound){
+    if (!gameFound) {
       throw new NotFoundException(`No game found with id: ${id}`);
     }
     return gameFound;

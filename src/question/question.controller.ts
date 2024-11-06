@@ -1,9 +1,23 @@
-import { Controller, Post, Body, Get, Param, NotFoundException, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  NotFoundException,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { Question } from './entities/question.entity';
 import { UpdateQuestionDto } from './dto/update-question.dto';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Role } from 'src/enums/role.enum';
 import { Roles } from 'src/roles/roles.decorator';
 
@@ -15,10 +29,15 @@ export class QuestionController {
 
   @Post()
   @ApiOperation({ summary: 'Create question' })
-  @ApiResponse({ status: 201, description: 'The question has been successfully created.' })
+  @ApiResponse({
+    status: 201,
+    description: 'The question has been successfully created.',
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
-  async create(@Body() createQuestionDto: CreateQuestionDto): Promise<Question> {
+  async create(
+    @Body() createQuestionDto: CreateQuestionDto,
+  ): Promise<Question> {
     return await this.questionService.create(createQuestionDto);
   }
 
@@ -28,8 +47,7 @@ export class QuestionController {
   @ApiResponse({ status: 404, description: 'Question not found.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   findOne(@Param('id') id: number): Promise<Question> {
-    return  this.questionService.findOne(id);
-    
+    return this.questionService.findOne(id);
   }
 
   @Get()
@@ -42,18 +60,27 @@ export class QuestionController {
 
   @Put(':id')
   @ApiOperation({ summary: 'Update question' })
-  @ApiResponse({ status: 200, description: 'The question has been successfully updated.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The question has been successfully updated.',
+  })
   @ApiResponse({ status: 404, description: 'Question not found.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
-  update(@Param('id') id: number, @Body() updateQuestionDto: UpdateQuestionDto) {
+  update(
+    @Param('id') id: number,
+    @Body() updateQuestionDto: UpdateQuestionDto,
+  ) {
     return this.questionService.update(id, updateQuestionDto);
   }
 
   @Delete(':id')
   @Roles(Role.Teacher)
   @ApiOperation({ summary: 'Delete question' })
-  @ApiResponse({ status: 200, description: 'The question has been successfully deleted.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The question has been successfully deleted.',
+  })
   @ApiResponse({ status: 404, description: 'Question not found.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 403, description: 'Forbidden resource.' })

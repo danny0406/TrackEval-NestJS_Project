@@ -19,4 +19,3 @@ export class CreateQuizDto {
   @ArrayMinSize(1)
   questions: CreateQuestionDto[];
 }
-  

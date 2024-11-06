@@ -22,21 +22,27 @@ export class QuestionService {
   }
 
   async findOne(id: number): Promise<Question> {
-    const question = await this.questionRepository.findOne({where:{id},  relations: ['answers'] });
+    const question = await this.questionRepository.findOne({
+      where: { id },
+      relations: ['answers'],
+    });
     if (!question) {
       throw new NotFoundException(`Question with id ${id} not found`);
     }
     return question;
   }
 
-  async update(id: number, updateQuestionDto: UpdateQuestionDto): Promise<Question> {
+  async update(
+    id: number,
+    updateQuestionDto: UpdateQuestionDto,
+  ): Promise<Question> {
     const question = await this.findOne(id);
     this.questionRepository.merge(question, updateQuestionDto);
     return this.questionRepository.save(question);
   }
 
   async remove(id: number): Promise<void> {
-    const question = await this.findOne(id)
+    const question = await this.findOne(id);
     await this.questionRepository.delete(question.id);
   }
 }

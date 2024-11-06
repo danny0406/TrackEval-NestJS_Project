@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { Quiz } from '../../quiz/entities/quiz.entity';
 import { Answer } from '../../answer/entities/answer.entity';
 
@@ -13,7 +19,6 @@ export class Question {
   @ManyToOne(() => Quiz, (quiz) => quiz.questions, { onDelete: 'CASCADE' })
   quiz: Quiz;
 
-  @OneToMany(() => Answer, (answer) => answer.question,{ cascade:true })
+  @OneToMany(() => Answer, (answer) => answer.question, { cascade: true })
   answers: Answer[];
 }
-

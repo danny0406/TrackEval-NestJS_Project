@@ -1,12 +1,25 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Request,
+} from '@nestjs/common';
 
-import { Public } from '../decorators/public.decorator'
+import { Public } from '../decorators/public.decorator';
 
 import { AuthService } from './auth.service';
 import { SignInAuthDto } from './dto/signIn-auth.dto';
 import { UserService } from 'src/user/user.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('Authenticate')
 @ApiBearerAuth()
@@ -38,12 +51,15 @@ export class AuthController {
   async register(@Body() user: CreateUserDto) {
     return this.userService.create(user);
   }
-  
+
   @Get('profile')
   @ApiOperation({ summary: 'Get user profile' })
-  @ApiResponse({ status: 200, description: 'User profile retrieved successfully.' })
+  @ApiResponse({
+    status: 200,
+    description: 'User profile retrieved successfully.',
+  })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
-  getProfile(@Request() req : any) {
+  getProfile(@Request() req: any) {
     return req.user;
   }
 }
